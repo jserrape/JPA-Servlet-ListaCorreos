@@ -19,3 +19,5 @@ Como se ha comenatdo en primer lugar se desarrolló la clase Interfaz.java en Ne
 ## Vídeo
 En el siguiente enlace de YouTube se muestra el uso del proyecto insertando, actualizando y eliminando usuarios de las tablas:
 [https://www.youtube.com/watch?v=ziRV5Jcdaks&feature=youtu.be](https://www.youtube.com/watch?v=ziRV5Jcdaks&feature=youtu.be)
+
+![UML][https://raw.githubusercontent.com/xenahort/JPA-Servlet-ListaCorreos/master/img/UML.png]
