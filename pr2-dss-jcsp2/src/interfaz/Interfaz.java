@@ -24,7 +24,7 @@ import java.net.ProtocolException;
  */
 public class Interfaz extends javax.swing.JFrame {
 
-	private final String url = "http://localhost:8080/pr2-dss-jcsp2/ListaCorreosServlet";
+	static private final String url = "http://localhost:8080/pr2-dss-jcsp2/ListaCorreosServlet";
 
 	private final DefaultTableModel modelo;
 	private final String[] Datos;
@@ -177,33 +177,32 @@ public class Interfaz extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>
 
-	private void bInsertarActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {
+	private void bInsertarActionPerformed() throws IOException, ClassNotFoundException {
 		// TODO add your handling code here:
 		String n = this.jTextNombre.getText();
 		String a = this.jTextApellidos.getText();
 		String c = this.jTextCorreo.getText();
 
-		if (!"".equals(n.replaceAll(" ", "")) && !"".equals(a.replaceAll(" ", ""))
-				&& !"".equals(c.replaceAll(" ", ""))) {
-			if (!this.existeCorreo(c)) {
-				Map<String, String> accion = new HashMap<String, String>();
-				accion.put("action", "aniadirUsuario");
-				accion.put("nombre", n);
-				accion.put("apellido", a);
-				accion.put("email", c);
+		if ((!"".equals(n.replaceAll(" ", "")) && !"".equals(a.replaceAll(" ", ""))
+		&& !"".equals(c.replaceAll(" ", ""))) &&  !this.existeCorreo(c)) {
+			Map<String, String> accion = new HashMap<String, String>();
+			accion.put("action", "aniadirUsuario");
+			accion.put("nombre", n);
+			accion.put("apellido", a);
+			accion.put("email", c);
 
-				if ((new ObjectInputStream(peticionPost(accion))).readInt() == 0) {
-					JOptionPane.showMessageDialog(this, "Se ha insertado el usuario correctamente");
-				} else {
-					JOptionPane.showMessageDialog(this, "Se ha encontrado un error al insertar el usuario", "Error",
-							JOptionPane.WARNING_MESSAGE);
-				}
-				actualizarTabla();
-				limpiar();
+			if ((new ObjectInputStream(peticionPost(accion))).readInt() == 0) {
+				JOptionPane.showMessageDialog(this, "Se ha insertado el usuario correctamente");
+			} else {
+				JOptionPane.showMessageDialog(this, "Se ha encontrado un error al insertar el usuario", "Error",
+						JOptionPane.WARNING_MESSAGE);
 			}
+			actualizarTabla();
+			limpiar();
 		}
 	}
 
+	@SuppressWarnings("resource")
 	private void bActualizarActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
 		// TODO add your handling code here:
 		String n = this.jTextNombre.getText();
@@ -267,13 +266,7 @@ public class Interfaz extends javax.swing.JFrame {
 					break;
 				}
 			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+		} catch (ClassNotFoundException|InstantiationException|IllegalAccessException|javax.swing.UnsupportedLookAndFeelException ex) {
 			java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		// </editor-fold>
